@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block title %}Register{% endblock %}
+{% block content %}
+<div class="auth-wrap"><div class="auth-card">
+  <div class="brand-mark">▣</div><h2>Create account</h2><p class="text-secondary">Register as a library student.</p>
+  <form method="post">
+    <label class="form-label">Full name</label><input class="form-control mb-3" name="name" required>
+    <label class="form-label">Email address</label><input class="form-control mb-3" type="email" name="email" required>
+    <label class="form-label">Password</label><input class="form-control mb-4" type="password" name="password" minlength="6" required>
+    <button class="btn btn-primary w-100">Create account</button>
+  </form>
+  <p class="text-center mt-4 mb-0">Already registered? <a href="{{ url_for('login') }}">Sign in</a></p>
+</div></div>
+{% endblock %}
