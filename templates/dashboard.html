@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4"><div><p class="eyebrow mb-1">OVERVIEW</p><h1 class="page-title">Good day, {{ logged_user.name.split(' ')[0] }}</h1><p class="text-secondary mb-0">Here's what's happening in your library.</p></div><a class="btn btn-primary mt-3 mt-md-0" href="{{ url_for('books') }}">Explore books →</a></div>
+<div class="row g-3 mb-4">
+{% for label,value,icon in [('Total books',book_count,'▤'),('Student members',member_count,'♙'),('Active loans',active_loans,'↗'),('Overdue loans',overdue,'◷')] %}
+<div class="col-6 col-xl-3"><div class="stat-card"><div class="stat-icon">{{ icon }}</div><div class="text-secondary small">{{ label }}</div><div class="stat-number">{{ value }}</div></div></div>
+{% endfor %}
+</div>
+<div class="panel"><div class="d-flex justify-content-between align-items-center mb-3"><h5 class="mb-0">Recent activity</h5><a href="{{ url_for('loans') }}">View all</a></div>
+{% if recent %}<div class="table-responsive"><table class="table align-middle"><thead><tr><th>Book</th><th>Member</th><th>Issued</th><th>Due date</th><th>Status</th></tr></thead><tbody>
+{% for loan in recent %}<tr><td class="fw-semibold">{{ loan.book.title }}</td><td>{{ loan.borrower.name }}</td><td>{{ loan.issued_on }}</td><td>{{ loan.due_on }}</td><td>{% if loan.returned_on %}<span class="pill success">Returned</span>{% elif loan.due_on < __import__('datetime').date.today() %}<span class="pill danger">Overdue</span>{% else %}<span class="pill info">Issued</span>{% endif %}</td></tr>{% endfor %}
+</tbody></table></div>{% else %}<div class="empty-state">No borrowing activity yet. Issue a book to get started.</div>{% endif %}
+</div>
+{% endblock %}
