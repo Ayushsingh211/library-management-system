@@ -1,0 +1,2 @@
+{% extends "base.html" %}{% block title %}Members{% endblock %}
+{% block content %}<p class="eyebrow mb-1">PEOPLE</p><h1 class="page-title mb-4">Library members</h1><div class="panel table-responsive"><table class="table align-middle"><thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Member ID</th></tr></thead><tbody>{% for member in members %}<tr><td class="fw-semibold">{{ member.name }}</td><td>{{ member.email }}</td><td><span class="pill info">{{ member.role }}</span></td><td>#{{ member.id }}</td></tr>{% endfor %}</tbody></table></div>{% endblock %}
